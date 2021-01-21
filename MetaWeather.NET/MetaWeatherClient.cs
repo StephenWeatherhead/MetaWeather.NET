@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace MetaWeather.NET
 {
@@ -19,7 +23,14 @@ namespace MetaWeather.NET
 
         public async Task<LocationSearch> LocationSearch(string query)
         {
-            throw new NotImplementedException();
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("User-Agent", "MetaWeather.NET");
+            string url = "https://www.metaweather.com/api/location/search/?query=" + HttpUtility.UrlEncode(query);
+            var streamTask = client.GetStreamAsync(url);
+            return (await JsonSerializer.DeserializeAsync<LocationSearch[]>(await streamTask))[0];
         }
 
         public async Task<LocationSearch> LocationSearch(double latitude, double longitude)
