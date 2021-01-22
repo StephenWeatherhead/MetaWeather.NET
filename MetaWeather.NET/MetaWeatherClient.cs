@@ -44,7 +44,11 @@ namespace MetaWeather.NET
 
         public async Task<LocationSearch> LocationSearch(double latitude, double longitude)
         {
-            throw new NotImplementedException();
+            string latitudeString = HttpUtility.UrlEncode(latitude.ToString());
+            string longitudeString = HttpUtility.UrlEncode(longitude.ToString());
+            string url = "https://www.metaweather.com/api/location/search/?lattlong=" + latitudeString + "," + longitudeString;
+            var streamTask = _httpClient.GetStreamAsync(url);
+            return (await JsonSerializer.DeserializeAsync<LocationSearch[]>(await streamTask))[0];
         }
     }
 }
