@@ -9,7 +9,7 @@ namespace MetaWeather.NET
     {
         Task<LocationSearch[]> LocationSearch(string query);
         Task<LocationSearch[]> LocationSearch(double latitude, double longitude);
-        Task<Location> Location(int WOEID);
+        Task<Location> Location(long WOEID);
         Task<Forecast[]> LocationDay(int WOEID, DateTime date);
     }
 }

@@ -15,8 +15,8 @@ namespace MetaWeather.NET
         [JsonPropertyName("latt_long"), JsonConverter(typeof(CoordinateConverter))]
         public Coordinate Coordinate { get; set; }
         [JsonPropertyName("woeid")]
-        public int WOEID { get; set; }
+        public long WOEID { get; set; }
         [JsonPropertyName("distance")]
-        public int Distance { get; set; }
+        public long Distance { get; set; }
     }
 }

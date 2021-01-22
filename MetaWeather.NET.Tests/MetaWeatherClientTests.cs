@@ -47,9 +47,9 @@ namespace MetaWeather.NET.Tests
             Assert.Equal("City", location.LocationType);
             Assert.Equal(51.51, Math.Round(location.Latitude, 2));
             Assert.Equal(-0.13, Math.Round(location.Longitude, 2));
-            Assert.True(location.ConsolidatedWeather.Count > 3);
+            Assert.True(location.ConsolidatedWeather.Length > 3);
             Assert.NotNull(location.Parent);
-            Assert.True(location.Sources.Count > 3);
+            Assert.True(location.Sources.Length > 3);
         }
     }
 }

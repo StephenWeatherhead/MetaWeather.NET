@@ -1,11 +1,20 @@
-﻿namespace MetaWeather.NET
+﻿using System.Text.Json.Serialization;
+
+namespace MetaWeather.NET
 {
     public class ParentLocation
     {
+        [JsonPropertyName("title")]
         public string Title { get; set; }
+        [JsonPropertyName("location_type")]
         public string LocationType { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public int WOEID { get; set; }
+        [JsonIgnore()]
+        public double Latitude { get { return Coordinate.Latitude; } }
+        [JsonIgnore()]
+        public double Longitude { get { return Coordinate.Longitude; } }
+        [JsonPropertyName("latt_long"), JsonConverter(typeof(CoordinateConverter))]
+        public Coordinate Coordinate { get; set; }
+        [JsonPropertyName("woeid")]
+        public long WOEID { get; set; }
     }
 }
