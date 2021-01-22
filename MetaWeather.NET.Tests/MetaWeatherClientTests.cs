@@ -35,5 +35,21 @@ namespace MetaWeather.NET.Tests
             Assert.Equal(-0.13, Math.Round(locationSearch.Longitude, 2));
             Assert.True(locationSearch.Distance < 10);
         }
+        [Fact]
+        public async Task Location()
+        {
+            Location location;
+            using (var client = new MetaWeatherClient())
+            {
+                location = await client.Location(44418);
+            }
+            Assert.Equal("London", location.Title);
+            Assert.Equal("City", location.LocationType);
+            Assert.Equal(51.51, Math.Round(location.Latitude, 2));
+            Assert.Equal(-0.13, Math.Round(location.Longitude, 2));
+            Assert.True(location.ConsolidatedWeather.Count > 3);
+            Assert.NotNull(location.Parent);
+            Assert.True(location.Sources.Count > 3);
+        }
     }
 }
