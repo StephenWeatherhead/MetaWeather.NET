@@ -7,9 +7,9 @@ namespace MetaWeather.NET
 {
     public interface IMetaWeatherClient : IDisposable
     {
-        Task<LocationSearch> LocationSearch(string query);
-        Task<LocationSearch> LocationSearch(double latitude, double longitude);
+        Task<LocationSearch[]> LocationSearch(string query);
+        Task<LocationSearch[]> LocationSearch(double latitude, double longitude);
         Task<Location> Location(int WOEID);
-        Task<List<Forecast>> LocationDay(int WOEID, DateTime date);
+        Task<Forecast[]> LocationDay(int WOEID, DateTime date);
     }
 }

@@ -12,7 +12,7 @@ namespace MetaWeather.NET.Tests
             LocationSearch locationSearch;
             using (var client = new MetaWeatherClient())
             {
-                locationSearch = await client.LocationSearch("london");
+                locationSearch = (await client.LocationSearch("london"))[0];
             }
             Assert.Equal("London", locationSearch.Title);
             Assert.Equal("City", locationSearch.LocationType);
@@ -26,7 +26,7 @@ namespace MetaWeather.NET.Tests
             LocationSearch locationSearch;
             using (var client = new MetaWeatherClient())
             {
-                locationSearch = await client.LocationSearch(51.506321, -0.12714);
+                locationSearch = (await client.LocationSearch(51.506321, -0.12714))[0];
             }
             Assert.Equal("London", locationSearch.Title);
             Assert.Equal("City", locationSearch.LocationType);

@@ -30,25 +30,24 @@ namespace MetaWeather.NET
             throw new NotImplementedException();
         }
 
-        public async Task<List<Forecast>> LocationDay(int WOEID, DateTime date)
+        public async Task<Forecast[]> LocationDay(int WOEID, DateTime date)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<LocationSearch> LocationSearch(string query)
+        public async Task<LocationSearch[]> LocationSearch(string query)
         {
             string url = "https://www.metaweather.com/api/location/search/?query=" + HttpUtility.UrlEncode(query);
             var streamTask = _httpClient.GetStreamAsync(url);
-            return (await JsonSerializer.DeserializeAsync<LocationSearch[]>(await streamTask))[0];
+            return (await JsonSerializer.DeserializeAsync<LocationSearch[]>(await streamTask));
         }
 
-        public async Task<LocationSearch> LocationSearch(double latitude, double longitude)
+        public async Task<LocationSearch[]> LocationSearch(double latitude, double longitude)
         {
-            string latitudeString = HttpUtility.UrlEncode(latitude.ToString());
-            string longitudeString = HttpUtility.UrlEncode(longitude.ToString());
-            string url = "https://www.metaweather.com/api/location/search/?lattlong=" + latitudeString + "," + longitudeString;
+            string coordinate = HttpUtility.UrlEncode(latitude.ToString() + "," + longitude.ToString());
+            string url = "https://www.metaweather.com/api/location/search/?lattlong=" + coordinate;
             var streamTask = _httpClient.GetStreamAsync(url);
-            return (await JsonSerializer.DeserializeAsync<LocationSearch[]>(await streamTask))[0];
+            return (await JsonSerializer.DeserializeAsync<LocationSearch[]>(await streamTask));
         }
     }
 }
