@@ -11,6 +11,20 @@ namespace MetaWeather.NET
 {
     public class MetaWeatherClient : IMetaWeatherClient
     {
+        private HttpClient _httpClient;
+        public MetaWeatherClient()
+        {
+            _httpClient = new HttpClient();
+            _httpClient.DefaultRequestHeaders.Accept.Clear();
+            _httpClient.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "MetaWeather.NET");
+        }
+        public void Dispose()
+        {
+            _httpClient.Dispose();
+        }
+
         public async Task<Location> Location(int WOEID)
         {
             throw new NotImplementedException();
@@ -23,13 +37,8 @@ namespace MetaWeather.NET
 
         public async Task<LocationSearch> LocationSearch(string query)
         {
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add("User-Agent", "MetaWeather.NET");
             string url = "https://www.metaweather.com/api/location/search/?query=" + HttpUtility.UrlEncode(query);
-            var streamTask = client.GetStreamAsync(url);
+            var streamTask = _httpClient.GetStreamAsync(url);
             return (await JsonSerializer.DeserializeAsync<LocationSearch[]>(await streamTask))[0];
         }
 

@@ -9,8 +9,11 @@ namespace MetaWeather.NET.Tests
         [Fact]
         public async Task LocationSearchQuery()
         {
-            MetaWeatherClient client = new MetaWeatherClient();
-            LocationSearch locationSearch = await client.LocationSearch("london");
+            LocationSearch locationSearch;
+            using (var client = new MetaWeatherClient())
+            {
+                locationSearch = await client.LocationSearch("london");
+            }
             Assert.Equal("London", locationSearch.Title);
             Assert.Equal("City", locationSearch.LocationType);
             Assert.Equal(44418, locationSearch.WOEID);

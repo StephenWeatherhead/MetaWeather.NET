@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MetaWeather.NET
 {
-    public interface IMetaWeatherClient
+    public interface IMetaWeatherClient : IDisposable
     {
         Task<LocationSearch> LocationSearch(string query);
         Task<LocationSearch> LocationSearch(double latitude, double longitude);
