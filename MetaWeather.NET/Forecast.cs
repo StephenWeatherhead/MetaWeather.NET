@@ -14,23 +14,23 @@ namespace MetaWeather.NET
         [JsonPropertyName("weather_state_abbr")]
         public string WeatherStateAbbreviation { get; set; }
         [JsonPropertyName("wind_speed")]
-        public double WindSpeed { get; set; }
+        public double? WindSpeed { get; set; }
         [JsonPropertyName("wind_direction")]
-        public double WindDirection { get; set; }
+        public double? WindDirection { get; set; }
         [JsonPropertyName("wind_direction_compass")]
         public string WindDirectionCompass { get; set; }
         [JsonPropertyName("the_temp")]
-        public double Temperature { get; set; }
+        public double? Temperature { get; set; }
         [JsonPropertyName("max_temp")]
-        public double MaxTemperature { get; set; }
+        public double? MaxTemperature { get; set; }
         [JsonPropertyName("min_temp")]
-        public double MinTemperature { get; set; }
+        public double? MinTemperature { get; set; }
         [JsonPropertyName("air_pressure")]
-        public double AirPressure { get; set; }
+        public double? AirPressure { get; set; }
         [JsonPropertyName("humidity")]
-        public double Humidity { get; set; }
+        public double? Humidity { get; set; }
         [JsonPropertyName("visibility")]
-        public double Visibility { get; set; }
+        public double? Visibility { get; set; }
         [JsonPropertyName("predictability")]
         public double Predictability { get; set; }
     }

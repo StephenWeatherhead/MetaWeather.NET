@@ -51,5 +51,25 @@ namespace MetaWeather.NET.Tests
             Assert.NotNull(location.Parent);
             Assert.True(location.Sources.Length > 3);
         }
+        [Fact]
+        public async Task LocationDay()
+        {
+            Forecast[] forecasts;
+            using(var client = new MetaWeatherClient())
+            {
+                forecasts = await client.LocationDay(44418, new DateTime(2013, 4, 27));
+            }
+            Assert.Equal(99, forecasts.Length);
+            Assert.Equal(366945, forecasts[0].ID);
+            Assert.Equal("Light Rain", forecasts[0].WeatherStateName);
+            Assert.Equal("N", forecasts[0].WindDirectionCompass);
+            Assert.True(forecasts[0].MinTemperature >= 3 && forecasts[0].MinTemperature < 4);
+            Assert.True(forecasts[0].MaxTemperature >= 10 && forecasts[0].MaxTemperature < 11);
+            Assert.True(forecasts[0].WindSpeed > 9 && forecasts[0].WindSpeed < 10);
+            Assert.Equal(358, forecasts[0].WindDirection);
+            Assert.Equal(74, forecasts[0].Humidity);
+            Assert.Equal(75, forecasts[0].Predictability);
+            Assert.True(forecasts[0].Visibility > 9 && forecasts[0].Visibility < 10);
+        }
     }
 }

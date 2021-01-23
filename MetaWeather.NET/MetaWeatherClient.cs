@@ -34,7 +34,9 @@ namespace MetaWeather.NET
 
         public async Task<Forecast[]> LocationDay(int WOEID, DateTime date)
         {
-            throw new NotImplementedException();
+            string url = $"https://www.metaweather.com/api/location/{HttpUtility.UrlEncode(WOEID.ToString())}/{date.Year.ToString()}/{date.Month.ToString()}/{date.Day.ToString()}/";
+            var streamTask = _httpClient.GetStreamAsync(url);
+            return (await JsonSerializer.DeserializeAsync<Forecast[]>(await streamTask));
         }
 
         public async Task<LocationSearch[]> LocationSearch(string query)
