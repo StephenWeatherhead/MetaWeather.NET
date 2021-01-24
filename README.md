@@ -7,8 +7,13 @@ MetaWeather.NET is a .NET Standard client library for [MetaWeather](https://www.
 Location location;
 using (var client = new MetaWeatherClient())
 {
-    location = await client.Location(44418);
+    LocationSearch[] locationSearches = await client.LocationSearch("london");
+    location = await client.Location(locationSearches[0].WOEID);
 }
 Console.WriteLine("The location is " + location.Title);
 Console.WriteLine("The forecast is " + location.ConsolidatedWeather[0].WeatherStateName);
+Console.WriteLine("The minimum temperature is " + location.ConsolidatedWeather[0].MinTemperature.ToString() + " degrees centigrade");
+// The location is London
+// The forecast is Light Cloud
+// The minimum temperature is 5 degrees centigrade
 ```
